@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Principal</title>
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <script src="../js/funcoes.js"></script>
+    <!-- <script src="painelP.js"></script> -->
+    <script src="./js/menuPainel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script src="../js/funcoes.js"></script>
+    <script src="./js/alerta.js"></script>
+    <script src="js/alertaUmidade.js"></script>
+    <script src="js/statusSensor.js"></script>
+
+</head>
+<body onload="validarSessao(), atualizacaoPeriodica(), plotarPizza2(), StatusSensor()">
+      <!-- Começo do Header -->
+  <div class="header">
+    <div class="container">
+      <img class="logoNav" src="./img/logo_navBar.png" />
+
+      <div class="menu">
+        <img onclick="clickmenu()" id="menu" src="./img/menu_icon.png">
+    </div>
+
+       <a href="../login.html"> <button onclick="btnCadastro()" class="btnCadastro">
+          Sair
+        </button></a>
+
+    </div>
+  </div>
+  <!-- Fim do Header -->
+  
+<div id="mensagem"></div>
+
+<div class="banner">
+    <div id="alerta">
+    </div>
+<div id="alerta2">
+</div>
+    <div class="text">
+        <h2>Bem vindo(a) <span id="b_usuario">usuário</span> ao Painel Principal de Monitoramento</h2>
+        <span>Acompanhe as Médias de Temperatura e Umidade <span id="mensal"> mensal</span> no seu Museu. 
+            Para informações especificas, clique nos indicadores coloridos ou acesse suas salas pelo menu!</span>
+    </div>
+
+        <div class="leituras">
+            <div class="l1">
+                <span id="title">Média de alertas críticos</span id="title">
+                <span>3%</span>
+            </div>
+            <div class="l2">
+                <span id="title">Média de leituras estáveis </span id="title">
+                <span>85%</span>
+            </div>
+            <div class="l3">
+                <span id="title">Média de alertas de risco</span id="title">
+                <span>20%</span>
+            </div>
+        </div>
+<div class="caixa_alerta">
+    <h2>A taxa de alertas próximos a ultrapassar a temperatura ou umidade ideal da <span id="salaB" onclick="verSala()">Sala B</span> esteve acima do esperado este mês. 
+        Procure dar atenção especial para determinada sala. </h2>
+</div>
+
+<div class="caixa_sensor">
+    <h2>Quantidade de sensores que você possui atualmente</h2>
+    <span id="totalSensor"></span>
+</div>
+
+
+<div class="graficoPizza">
+    <div class="pizza">
+        <div>
+            <canvas id="grafico_pizza2"></canvas>
+        </div>              
+    </div>
+    
+
+    <!-- </div>
+    <div class="baixo">
+    <div class="graficos">
+    <div>
+        <canvas id="myChart1"></canvas>
+    </div>
+    <div>
+        <canvas id="myChart2"></canvas>
+    </div>
+    <div>
+        <canvas id="myChart3"></canvas>
+    </div>
+    <div>
+        <canvas id="myChart4"></canvas> -->
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</div>
+    <!-- fim do gráfico -->
+    <div class="textPreCard">
+    <span>Acompanhe em tempo Real as medidas que estão fora do ideal</span>
+    </div>
+    <!-- inicio do card -->
+    <div class="cards">
+    <div class="cardBg">
+        <div class="cardCor">
+            <div id="cardCor1"> <span id="tempQuadro1"></span></div>
+            <div id="cardCor5"> <span id="umidQuadro1"></span></div>  
+        </div>
+        <span class="textCard">Temperatura | Umidade</span>
+    </div>
+
+    <div class="cardBg">
+        <div class="cardCor">
+            <div id="cardCor2"><span id="tempQuadro2"></span></div>
+            <div id="cardCor6"><span id="umidQuadro2"></span></div>
+        </div>
+        <span class="textCard">Temperatura | Umidade</span>
+    </div>
+
+    <div class="cardBg">
+        <div class="cardCor">
+            <div id="cardCor3"><span id="tempQuadro3"></span></div>
+            <div id="cardCor7"><span id="umidQuadro3"></span></div> 
+        </div>
+        <span class="textCard">Temperatura | Umidade</span>
+    </div>
+
+    <div class="cardBg">
+        <div class="cardCor">
+            <div id="cardCor4"><span id="tempQuadro4"></span></div>
+            <div id="cardCor8"><span id="umidQuadro4"></span></div>
+        </div>
+        <span class="textCard">Temperatura | Umidade </span>
+    </div>
+</div>
+    <!-- fim do card -->
+
+    <div class="metricas">
+        <div  class="caixaMetricaRedFrio">
+            <h4>Crítico</h4>
+            <ul>
+                <li>10º C</li>
+            </ul>
+        </div>
+
+        <div class="caixaMetricaYellowFrio">
+            <h4>Alerta</h4>
+            <ul>
+                <li>12º - 14ºC</li>
+            </ul>
+        </div>
+
+        <div class="caixaMetricaGreen">
+            <h4>Ideal</h4>
+            <ul>
+                <li>16º - 18ºC</li>
+            </ul>
+        </div>
+
+        <div class="caixaMetricaYellow">
+            <h4>Alerta</h4>
+            <ul>
+                <li>20º - 22ºC</li>
+            </ul>
+        </div>
+
+        <div class="caixaMetricaRed">
+            <h4>Crítico</h4>
+            <ul>
+                <li>24º C</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="metricas">
+        <div  class="caixaMetricaMuitoSeco">
+            <h4>Crítico</h4>
+            <ul>
+                <li>44%</li>
+            </ul>
+        </div>
+
+        <div class="caixaMetricaSeco">
+            <h4>Alerta</h4>
+            <ul>
+                <li>46% - 48%</li>
+            </ul>
+        </div>
+
+        <div class="caixaMetricaIdealUmid">
+            <h4>Ideal</h4>
+            <ul>
+                <li>50% - 55%</li>
+            </ul>
+        </div>
+
+        <div class="caixaMetricaUmido">
+            <h4>Alerta</h4>
+            <ul>
+                <li>57% - 59%</li>
+            </ul>
+        </div>
+
+        <div class="caixaMetricaMuitoUmido">
+            <h4>Crítico</h4>
+            <ul>
+                <li>61%</li>
+            </ul>
+        </div>
+    </div>
+
+  
+
+</body>
+</html>
+
+<script>
+
+b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+totalSensor.innerHTML = sessionStorage.STATTOTALSENSOR;
+
+
+    const pizza = document.getElementById('grafico_pizza2');
+  const bar1 = document.getElementById('myChart1');
+  const bar2 = document.getElementById('myChart2');
+  const bar3 = document.getElementById('myChart3');
+  const bar4 = document.getElementById('myChart4');
+
+  function plotarPizza2(){
+    ativo = sessionStorage.STATSENSORATIVO
+    inativo = sessionStorage.STATSENSORINATIVO
+    manutencao = sessionStorage.STATSENSORMANUTENCAO
+
+    new Chart(pizza, {
+  type: 'pie',
+  data: {
+    labels: [
+    'Ativo',
+    'Em manutenção',
+    'Inativo'
+  ],
+  datasets: [{
+    label: 'Sensores',
+    data: [ativo, inativo, manutencao], // 300, 50, 100
+    //   borderWidth: 1,
+      backgroundColor: [
+      'rgb(128, 0, 128)',
+      'rgb(186, 85, 211)',
+      'rgb(160,160,160)'
+    ],    hoverOffset: 4
+    }]
+  },
+  options: {
+        maintainAspectRatio: false,
+      }
+}
+);
+  }
+
+
+function atualizacaoPeriodica() {
+        obterdados(1);
+        obterdados(2);
+        obterdados(3);
+        obterdados(4);
+
+        obterdados2(1);
+        obterdados2(2);
+        obterdados2(3);
+        obterdados2(4);
+
+        setTimeout(atualizacaoPeriodica, 10000);
+    }    
+    
+    function StatusSensor(){
+        buscarStatusSensor(1);
+        buscarStatusSensor(2);
+        buscarStatusSensor(3);
+        buscarStatusSensor(4);
+    }
+</script>
