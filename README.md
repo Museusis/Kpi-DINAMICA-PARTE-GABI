@@ -1,2 +1,2 @@
 # Kpi-DINAMICA-PARTE-GABI
-AMANHÃ JUNTAR COM O QUE ESTÁ FEITO COM O OUTRO REPOSITÓRIO
+juntar com o outro repositorio 
